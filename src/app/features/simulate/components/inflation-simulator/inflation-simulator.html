@@ -13,7 +13,7 @@
       
       <div class="controls-grid">
         <div class="control-group">
-          <label>Cash under mattress: {{ initialValue() | currency }}</label>
+          <label>Cash under mattress: {{ initialValue() | currency:'INR':'symbol':'1.0-0' }}</label>
           <mat-slider min="1000" max="100000" step="1000">
             <input matSliderThumb [(ngModel)]="initialValue">
           </mat-slider>
@@ -34,16 +34,22 @@
         </div>
       </div>
 
-      <app-data-viz-fallback 
-        [data]="chartData()" 
-        valueLabel="Purchasing Power">
-      </app-data-viz-fallback>
+      @defer (on viewport) {
+        <app-data-viz-fallback 
+          [data]="chartData()" 
+          valueLabel="Purchasing Power">
+        </app-data-viz-fallback>
+      } @placeholder {
+        <div style="height: 200px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.02); margin: 1rem 0;">
+          <span>Loading Chart...</span>
+        </div>
+      }
 
       <div class="what-this-means alert-warning">
         <h3 class="mat-headline-6"><mat-icon>warning</mat-icon> What this means:</h3>
         <p class="mat-body-2">
-          If you leave {{ initialValue() | currency }} in cash for {{ years() }} years with {{ inflationRate() }}% inflation, 
-          it will eventually only be able to buy what <strong>{{ impactData()[impactData().length - 1].value | currency }}</strong> buys today.
+          If you leave {{ initialValue() | currency:'INR':'symbol':'1.0-0' }} in cash for {{ years() }} years with {{ inflationRate() }}% inflation, 
+          it will eventually only be able to buy what <strong>{{ impactData()[impactData().length - 1].value | currency:'INR':'symbol':'1.0-0' }}</strong> buys today.
           <br><br>
           This is exactly why you need to invest your savings—so it grows faster than inflation eats it!
         </p>

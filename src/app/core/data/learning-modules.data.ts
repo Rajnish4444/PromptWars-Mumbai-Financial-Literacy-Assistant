@@ -29,7 +29,7 @@ export const LEARNING_MODULES: LearningModule[] = [
     shortDescription: 'Understand why paying yourself first is the key to financial peace.',
     explanation: 'Saving means putting money aside today so you can use it later. "Paying yourself first" means moving a portion of your money into savings before you have a chance to spend it on other things.',
     whyItMatters: 'Saving protects you from bad surprises (like a broken phone) and helps you afford good surprises (like a vacation) without going into debt.',
-    dailyLifeExample: 'If you want to buy a new $500 game console, saving $50 a week means you can buy it in 10 weeks without owing anyone money.',
+    dailyLifeExample: 'If you want to buy a new ₹5,000 pair of shoes, saving ₹500 a week means you can buy it in 10 weeks without owing anyone money.',
     commonMistake: 'Waiting to save whatever is "left over" at the end of the month. Usually, nothing is left over!',
     understandingCheck: {
       question: 'What does "pay yourself first" mean?',
@@ -92,7 +92,7 @@ export const LEARNING_MODULES: LearningModule[] = [
     shortDescription: 'Understand why things cost more over time.',
     explanation: 'Inflation is the general increase in the prices of goods and services over time. When inflation happens, your money loses purchasing power, meaning a dollar today buys less than a dollar bought ten years ago.',
     whyItMatters: 'If you keep all your savings in cash under a mattress, inflation makes that money worth less every single year. You have to invest to keep up.',
-    dailyLifeExample: 'A movie ticket might have cost $5 when you were a kid, but today it costs $15. The movie didn\'t change, but the value of the money did.',
+    dailyLifeExample: 'A movie ticket might have cost ₹50 when you were a kid, but today it costs ₹350. The movie didn\'t change, but the value of the money did.',
     commonMistake: 'Believing that hiding cash makes it safe. Cash loses value silently every year due to inflation.',
     understandingCheck: {
       question: 'What is the main danger of inflation?',

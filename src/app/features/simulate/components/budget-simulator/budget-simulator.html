@@ -7,7 +7,7 @@
 
   <mat-card class="sim-card">
     <mat-card-header>
-      <mat-card-title>Monthly Income: {{ monthlyIncome() | currency }}</mat-card-title>
+      <mat-card-title>Monthly Income: {{ monthlyIncome() | currency:'INR':'symbol':'1.0-0' }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="controls">
@@ -16,11 +16,17 @@
         </mat-slider>
       </div>
 
-      <app-data-viz-fallback [data]="chartData()"></app-data-viz-fallback>
+      @defer (on viewport) {
+        <app-data-viz-fallback [data]="chartData()"></app-data-viz-fallback>
+      } @placeholder {
+        <div style="height: 200px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.02); margin: 1rem 0;">
+          <span>Loading Chart...</span>
+        </div>
+      }
 
       <div class="what-this-means">
         <h3 class="mat-headline-6">What this means:</h3>
-        <p class="mat-body-2">If you bring home <strong>{{ monthlyIncome() | currency }}</strong> each month, you should aim to spend no more than <strong>{{ budgetSplit().needs | currency }}</strong> on essential bills. That frees up <strong>{{ budgetSplit().wants | currency }}</strong> for guilt-free fun, ensuring at least <strong>{{ budgetSplit().savings | currency }}</strong> goes into savings!</p>
+        <p class="mat-body-2">If you bring home <strong>{{ monthlyIncome() | currency:'INR':'symbol':'1.0-0' }}</strong> each month, you should aim to spend no more than <strong>{{ budgetSplit().needs | currency:'INR':'symbol':'1.0-0' }}</strong> on essential bills. That frees up <strong>{{ budgetSplit().wants | currency:'INR':'symbol':'1.0-0' }}</strong> for guilt-free fun, ensuring at least <strong>{{ budgetSplit().savings | currency:'INR':'symbol':'1.0-0' }}</strong> goes into savings!</p>
       </div>
     </mat-card-content>
   </mat-card>

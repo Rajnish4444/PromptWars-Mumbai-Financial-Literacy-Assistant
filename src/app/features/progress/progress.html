@@ -9,18 +9,24 @@
     <!-- Main Hero Progress Ring -->
     <mat-card class="hero-card">
       <mat-card-content class="hero-content">
-        <div class="progress-ring-container" [style.--percent]="r.overallCompletionPercentage">
-          <svg class="progress-ring" viewBox="0 0 100 100">
-            <!-- Background circle -->
-            <circle class="ring-bg" cx="50" cy="50" r="45"></circle>
-            <!-- Progress circle -->
-            <circle class="ring-fill" cx="50" cy="50" r="45"></circle>
-          </svg>
-          <div class="ring-text">
-            <h2>{{ r.overallCompletionPercentage }}%</h2>
-            <span>Complete</span>
+        @defer (on viewport) {
+          <div class="progress-ring-container" [style.--percent]="r.overallCompletionPercentage">
+            <svg class="progress-ring" viewBox="0 0 100 100">
+              <!-- Background circle -->
+              <circle class="ring-bg" cx="50" cy="50" r="45"></circle>
+              <!-- Progress circle -->
+              <circle class="ring-fill" cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="ring-text">
+              <h2>{{ r.overallCompletionPercentage }}%</h2>
+              <span>Complete</span>
+            </div>
           </div>
-        </div>
+        } @placeholder {
+          <div class="progress-ring-container" style="display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.05); border-radius: 50%;">
+            <span>Loading...</span>
+          </div>
+        }
 
         <div class="hero-stats">
           <div class="stat-box">

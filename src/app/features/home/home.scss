@@ -1,18 +1,22 @@
 .home-container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: var(--space-lg);
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .hero-section {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: var(--space-xl) var(--space-md);
+  
+  h1 { margin-bottom: var(--space-sm); }
   
   .hero-subtitle {
-    margin-top: 1rem;
+    margin-top: var(--space-sm);
     color: var(--mat-sys-on-surface-variant);
+    font-size: 1.1rem;
+    line-height: 1.5;
   }
 }
 

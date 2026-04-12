@@ -3,7 +3,9 @@
 }
 
 .app-sidenav {
-  width: 250px;
+  width: 280px; // Larger touch area for accessibility
+  background-color: var(--mat-sys-surface-container);
+  border-right: none;
 }
 
 .branding-toolbar {
@@ -18,12 +20,23 @@
 }
 
 .main-content {
-  padding: 1rem;
+  padding: var(--space-md);
   max-width: 1200px;
   margin: 0 auto;
   min-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
+  background-color: var(--mat-sys-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-idle);
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-sm);
+
+  @media (min-width: 768px) {
+    padding: var(--space-xl);
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
 }
 
 .firebase-footer-badge {

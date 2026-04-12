@@ -9,10 +9,10 @@ export const QUIZ_TOPICS: QuizTopic[] = [
     questions: [
       {
         id: 'sg-q1',
-        scenario: 'You want to buy a new $400 phone in 4 months. What is the most reliable way to ensure you save enough money?',
+        scenario: 'You want to buy a new ₹40,000 phone in 4 months. What is the most reliable way to ensure you save enough money?',
         options: [
-          'Wait until the end of each month and save whatever is left in your checking account.',
-          'Set up an automatic transfer of $100 to a separate savings account on payday each month.',
+          'Wait until month 4 and hope you have ₹40,000 leftover.',
+          'Set up an automatic transfer of ₹10,000 to a separate savings account on payday each month.',
           'Try to skip eating out completely for the next 4 months.',
           'Put it on a credit card and figure out how to pay it off later.'
         ],
@@ -22,7 +22,7 @@ export const QUIZ_TOPICS: QuizTopic[] = [
       },
       {
         id: 'sg-q2',
-        scenario: 'You finally saved the $400, but your car tire suddenly pops and costs $200 to fix. You don\'t have an emergency fund. What should you do?',
+        scenario: 'You finally saved the ₹40,000, but your car tire suddenly pops and costs ₹20,000 to fix. You don\'t have an emergency fund. What should you do?',
         options: [
           'Fix the tire using half of your phone money, delay buying the phone, and start an emergency fund next.',
           'Buy the phone and put the tire repair on a high-interest credit card.',
@@ -56,16 +56,16 @@ export const QUIZ_TOPICS: QuizTopic[] = [
       },
       {
         id: 'nw-q2',
-        scenario: 'You have a $500/month budget for groceries (a need). You decide to buy premium organic steaks, bringing your bill to $700. How should you classify that extra $200?',
+        scenario: 'You have a ₹5,000/month budget for groceries (a need). You decide to buy premium organic imported steaks, bringing your bill to ₹7,000. How should you classify that extra ₹2,000?',
         options: [
-          'It is still a need, since food is a need.',
-          'The extra $200 is a want, because you chose a luxury option over basic nutrition.',
+          'The entire ₹7,000 is still a need since it is food.',
+          'The extra ₹2,000 is a want, because you chose a luxury option over basic nutrition.',
           'It is categorized as an emergency expense.',
           'It goes into savings.'
         ],
         correctOptionIndex: 1,
         successFeedback: 'Spot on! Choosing a luxury version of a basic need means the extra cost comes out of your "wants" budget category.',
-        failureFeedback: 'While food is a need, premium luxury food crosses into "want" territory. A strict budget would pull that extra $200 from your fun money.'
+        failureFeedback: 'While food is a need, premium luxury food crosses into "want" territory. A strict budget would pull that extra ₹2,000 from your fun money.'
       }
     ]
   },
@@ -77,15 +77,16 @@ export const QUIZ_TOPICS: QuizTopic[] = [
     questions: [
       {
         id: 'inf-q1',
-        scenario: 'You hide $5,000 cash in a safe. Over the next 10 years, inflation averages 3% per year. What happens to your money?',
+        scenario: 'You hide ₹1,00,000 cash in a safe. Over the next 10 years, inflation averages 6% per year. What happens to your money?',
         options: [
-          'The safe ensures the money grows in value automatically.',
-          'You still have $5,000, but it buys significantly fewer goods than it could 10 years ago.',
+          'The amount physically shrinks.',
+          'It grows with the economy.',
+          'You still have ₹1,00,000, but it buys significantly fewer goods than it could 10 years ago.',
           'The government automatically taxes cash hidden in a safe.',
           'The value stays exactly the same, buying the exact same amount of goods.'
         ],
-        correctOptionIndex: 1,
-        successFeedback: 'Correct! The nominal amount remains $5,000, but its purchasing power has decayed significantly due to the cost of goods rising.',
+        correctOptionIndex: 2,
+        successFeedback: 'Correct! The nominal amount remains ₹1,00,000, but its purchasing power has decayed significantly due to the cost of goods rising.',
         failureFeedback: 'Cash does not grow simply by hiding it, nor does it retain its buying power. Inflation silently decreases what that cash can buy.'
       }
     ]
@@ -98,11 +99,11 @@ export const QUIZ_TOPICS: QuizTopic[] = [
     questions: [
       {
         id: 'svi-q1',
-        scenario: 'You want to build a retirement fund over 30 years. Which strategy gives you the highest mathematical probability of reaching $1,000,000?',
+        scenario: 'You want to build a retirement fund over 30 years. Which strategy gives you the highest mathematical probability of reaching ₹1 Crore (₹1,00,00,000)?',
         options: [
-          'Putting $500/month into a bank savings account with 0% interest.',
-          'Investing $500/month into a diversified stock market index fund yielding roughly 7% annual interest.',
-          'Waiting until you are 60 and then saving $5000/month.',
+          'Putting ₹5,000/month into a bank savings account with 0% interest.',
+          'Investing ₹5,000/month into a diversified stock market index fund yielding roughly 10% annual interest.',
+          'Waiting until you are 60 and then saving ₹50,000/month.',
           'Buying lottery tickets each month.'
         ],
         correctOptionIndex: 1,

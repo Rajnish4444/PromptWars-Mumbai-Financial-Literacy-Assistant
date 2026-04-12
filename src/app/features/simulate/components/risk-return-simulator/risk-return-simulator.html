@@ -13,7 +13,7 @@
       
       <div class="controls-grid">
         <div class="control-group">
-          <label>Investment Amount: {{ investmentAmount() | currency }}</label>
+          <label>Investment Amount: {{ investmentAmount() | currency:'INR':'symbol':'1.0-0' }}</label>
           <mat-slider min="100" max="50000" step="500">
             <input matSliderThumb [(ngModel)]="investmentAmount">
           </mat-slider>
@@ -39,9 +39,9 @@
       <div class="what-this-means alert-info">
         <h3 class="mat-headline-6"><mat-icon>info</mat-icon> What this means:</h3>
         <p class="mat-body-2">
-          By taking a risk level of {{ riskLevel() }}, your expected final balance is <strong>{{ riskData().expectedValue | currency }}</strong>.
-          However, because of the risk, things might go badly. Your worst-case bound shows you could end up with only <strong>{{ riskData().pessimisticValue | currency }}</strong>.
-          If things go extremely well, you could see <strong>{{ riskData().optimisticValue | currency }}</strong>.
+          By taking a risk level of {{ riskLevel() }}, your expected final balance is <strong>{{ riskData().expectedValue | currency:'INR':'symbol':'1.0-0' }}</strong>.
+          However, because of the risk, things might go badly. Your worst-case bound shows you could end up with only <strong>{{ riskData().pessimisticValue | currency:'INR':'symbol':'1.0-0' }}</strong>.
+          If things go extremely well, you could see <strong>{{ riskData().optimisticValue | currency:'INR':'symbol':'1.0-0' }}</strong>.
           <br><br>
           Notice how bumping up the risk makes the "Optimistic Case" skyrocket, but pulls the "Pessimistic Case" closer to zero.
         </p>

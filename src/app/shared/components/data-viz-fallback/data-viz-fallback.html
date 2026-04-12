@@ -14,9 +14,9 @@
       @for (point of computedData(); track point.label) {
         <tr>
           <td>{{ point.label }}</td>
-          <td>{{ formatAsCurrency ? (point.value | currency) : point.value }}</td>
+          <td>{{ formatAsCurrency ? (point.value | currency:'INR') : point.value }}</td>
           @if (point.secondaryValue !== undefined) {
-             <td>{{ formatAsCurrency ? (point.secondaryValue | currency) : point.secondaryValue }}</td>
+             <td>{{ formatAsCurrency ? (point.secondaryValue | currency:'INR') : point.secondaryValue }}</td>
           }
         </tr>
       }
@@ -31,9 +31,9 @@
       <div class="bar-group">
         <div class="bars">
           @if (point.secondaryValue !== undefined) {
-            <div class="bar secondary" [style.height]="getHeight(point.secondaryValue)" [title]="secondaryValueLabel + ': ' + (formatAsCurrency ? (point.secondaryValue | currency) : point.secondaryValue)"></div>
+            <div class="bar secondary" [style.height]="getHeight(point.secondaryValue)" [title]="secondaryValueLabel + ': ' + (formatAsCurrency ? (point.secondaryValue | currency:'INR') : point.secondaryValue)"></div>
           }
-          <div class="bar primary" [style.height]="getHeight(point.value)" [title]="valueLabel + ': ' + (formatAsCurrency ? (point.value | currency) : point.value)"></div>
+          <div class="bar primary" [style.height]="getHeight(point.value)" [title]="valueLabel + ': ' + (formatAsCurrency ? (point.value | currency:'INR') : point.value)"></div>
         </div>
         <div class="x-label">{{ point.label }}</div>
       </div>

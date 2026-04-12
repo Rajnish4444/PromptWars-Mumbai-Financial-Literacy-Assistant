@@ -13,14 +13,14 @@
       
       <div class="controls-grid">
         <div class="control-group">
-          <label>Starting Amount: {{ initialAmount() | currency }}</label>
+          <label>Starting Amount: {{ initialAmount() | currency:'INR':'symbol':'1.0-0' }}</label>
           <mat-slider min="0" max="5000" step="100">
             <input matSliderThumb [(ngModel)]="initialAmount">
           </mat-slider>
         </div>
 
         <div class="control-group">
-          <label>Monthly Contribution: {{ monthlyContribution() | currency }}</label>
+          <label>Monthly Contribution: {{ monthlyContribution() | currency:'INR':'symbol':'1.0-0' }}</label>
           <mat-slider min="0" max="1000" step="25">
             <input matSliderThumb [(ngModel)]="monthlyContribution">
           </mat-slider>
@@ -34,16 +34,22 @@
         </div>
       </div>
 
-      <app-data-viz-fallback 
-        [data]="chartData()" 
-        valueLabel="Total Saved">
-      </app-data-viz-fallback>
+      @defer (on viewport) {
+        <app-data-viz-fallback 
+          [data]="chartData()" 
+          valueLabel="Total Saved">
+        </app-data-viz-fallback>
+      } @placeholder {
+        <div style="height: 200px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.02); margin: 1rem 0;">
+          <span>Loading Chart...</span>
+        </div>
+      }
 
       <div class="what-this-means alert-success">
         <h3 class="mat-headline-6"><mat-icon>savings</mat-icon> What this means:</h3>
         <p class="mat-body-2">
-          By simply hiding away {{ monthlyContribution() | currency }} a month for {{ years() }} years, 
-          you will have built up <strong>{{ growthData()[growthData().length - 1].value | currency }}</strong>.
+          By simply hiding away {{ monthlyContribution() | currency:'INR':'symbol':'1.0-0' }} a month for {{ years() }} years, 
+          you will have built up <strong>{{ growthData()[growthData().length - 1].value | currency:'INR':'symbol':'1.0-0' }}</strong>.
           <br><br>
           This is entirely your own money safely stashed away! No risks taken.
         </p>

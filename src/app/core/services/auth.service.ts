@@ -37,10 +37,11 @@ export class AuthService {
     if (this.auth.currentUser && this.auth.currentUser.isAnonymous) {
       try {
         await linkWithPopup(this.auth.currentUser, provider);
-      } catch (error: any) {
+      } catch (error: unknown) {
         // If the email is already hooked to a previous Hackathon run, Firebase rejects linking
         // We gracefully catch this and just Sign Them In directly to their old account!
-        if (error.code === 'auth/credential-already-in-use' || error.code === 'auth/email-already-in-use') {
+        const fbError = error as { code?: string };
+        if (fbError.code === 'auth/credential-already-in-use' || fbError.code === 'auth/email-already-in-use') {
           await signInWithPopup(this.auth, provider);
         } else {
           console.error('Failed to link Google account', error);

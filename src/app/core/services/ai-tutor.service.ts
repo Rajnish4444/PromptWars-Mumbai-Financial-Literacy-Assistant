@@ -1,5 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { ChatMessage, AiResponse } from '../models/ai.model';
+import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,21 +9,28 @@ import { ChatMessage, AiResponse } from '../models/ai.model';
 export class AiTutorService {
   private history = signal<ChatMessage[]>([]);
   public isTyping = signal<boolean>(false);
+  private genAI: GoogleGenerativeAI | null = null;
+  private model: GenerativeModel | null = null;
 
   // Expose deep copy of history
   public get chatHistory() {
     return this.history;
   }
 
-  constructor() { }
+  constructor() {
+    // Initialize Google Generative AI natively if Key is populated
+    if (environment.geminiApiKey && environment.geminiApiKey !== 'Temp_gemini_key') {
+      this.genAI = new GoogleGenerativeAI(environment.geminiApiKey);
+      this.model = this.genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    }
+  }
 
   public clearChat() {
     this.history.set([]);
   }
 
   /**
-   * Simulates sending a prompt to Firebase Vertex AI with intentional network delay.
-   * Internally runs a mock intent parser.
+   * Routes the prompt to Google Gemini if configured, otherwise falls back to a mock handler.
    */
   public async sendMessage(content: string): Promise<void> {
     const userMsg: ChatMessage = {
@@ -30,27 +39,40 @@ export class AiTutorService {
       content,
       timestamp: new Date()
     };
-    
+
     this.history.update(curr => [...curr, userMsg]);
     this.isTyping.set(true);
 
     try {
-      const response = await this.mockVertexCall(content);
-      
+      let responseContent = "";
+      if (this.model) {
+        // NATIVE GOOGLE AI CALL
+        const systemPrompt = "You are a friendly, encouraging financial literacy tutor aiming to help young people. Keep answers short, clear, and specifically DO NOT offer exact financial 'buy/sell' advice.";
+        const fullPrompt = `${systemPrompt}\nUser Question: ${content}`;
+        const result = await this.model.generateContent(fullPrompt);
+        const response = await result.response;
+        responseContent = response.text();
+      } else {
+        // FALLBACK MOCK
+        const res = await this.mockVertexCall(content);
+        responseContent = res.content;
+      }
+
       const aiMsg: ChatMessage = {
         id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(),
         role: 'assistant',
-        content: response.content,
+        content: responseContent,
         timestamp: new Date()
       };
-      
+
       this.history.update(curr => [...curr, aiMsg]);
-    } catch (e: any) {
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : 'AI processing failed. Please try again later.';
       // Create a local system fault message
       const errorMsg: ChatMessage = {
         id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(),
         role: 'system',
-        content: e.message || 'AI processing failed. Please try again later.',
+        content: errorMessage,
         timestamp: new Date()
       };
       this.history.update(curr => [...curr, errorMsg]);
@@ -64,7 +86,7 @@ export class AiTutorService {
    */
   private mockVertexCall(userString: string): Promise<AiResponse> {
     const raw = userString.toLowerCase();
-    
+
     return new Promise((resolve, reject) => {
       // Simulate real processing latency
       setTimeout(() => {
@@ -96,7 +118,7 @@ export class AiTutorService {
 
         if (raw.includes('inflation')) {
           resolve({
-            content: "Inflation is the gradual increase in prices over time. If a burger costs $2 today, it might cost $3 in a few years. Because prices go up, the cash you hide under your mattress slowly loses its 'buying power'.",
+            content: "Inflation is the gradual increase in prices over time. If a vada pav costs ₹15 today, it might cost ₹25 in a few years. Because prices go up, the cash you hide under your mattress slowly loses its 'buying power'.",
             isError: false
           });
           return;
@@ -112,7 +134,7 @@ export class AiTutorService {
 
         // Generic fallback for unmapped questions
         resolve({
-          content: "That's an interesting question! While I'm just a simulated AI right now, I encourage you to check out our **Learn** module or run some numbers through the **Simulate** section to find out more on that topic.",
+          content: "That's an interesting question! (Psst. I'm currently running in Fallback mode. Add your Gemini API key to environment.ts to unlock my full brain!)",
           isError: false
         });
       }, 1500);

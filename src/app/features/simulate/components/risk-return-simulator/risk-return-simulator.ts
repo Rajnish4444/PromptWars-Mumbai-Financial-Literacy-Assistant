@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [CommonModule, FormsModule, MatCardModule, MatSliderModule, MatIconModule, MatButtonModule, RouterModule, DataVizFallback],
   templateUrl: './risk-return-simulator.html',
   styleUrl: './risk-return-simulator.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RiskReturnSimulator {
   investmentAmount = signal(10000);

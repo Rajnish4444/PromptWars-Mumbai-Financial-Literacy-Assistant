@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   useEmulators: false,
+  geminiApiKey: 'AIzaSyCZ_6upAFcXiSAQeHzgqgIgFVjkHeW1Rfk',
   firebase: {
     projectId: 'phrasal-lyceum-493106-j8',
     appId: '1:564142922058:web:36b90febbbd60ee40489b3',

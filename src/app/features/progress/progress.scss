@@ -1,28 +1,31 @@
 .progress-dashboard {
-  max-width: 900px;
+  max-width: 1000px; // Larger readability
   margin: 0 auto;
-  padding: 1rem;
 }
 
 .header-section {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-xl);
 
   .header-icon {
-    font-size: 48px;
-    height: 48px;
-    width: 48px;
-    margin-bottom: 0.5rem;
+    font-size: 56px;
+    height: 56px;
+    width: 56px;
+    margin-bottom: var(--space-sm);
+    color: var(--mat-sys-primary); // Pop the icon color
   }
 
+  h1 { margin-bottom: var(--space-xs); }
+
   .text-muted {
-    color: var(--mat-sys-on-surface-variant);
+    font-size: 1.1rem;
   }
 }
 
 .hero-card {
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-lg);
   background-color: var(--mat-sys-surface-container-low);
+  border-radius: var(--radius-lg);
 }
 
 .hero-content {
@@ -30,20 +33,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  gap: 2rem;
+  padding: var(--space-xl) var(--space-md);
+  gap: var(--space-lg);
 
-  @media (min-width: 600px) {
+  @media (min-width: 768px) {
     flex-direction: row;
-    gap: 4rem;
+    gap: var(--space-xl);
   }
 }
 
 // Circular SVG Progress Ring Magic
 .progress-ring-container {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 180px;
+  height: 180px;
 
   .progress-ring {
     width: 100%;
@@ -54,17 +57,16 @@
   .ring-bg {
     fill: transparent;
     stroke: var(--mat-sys-surface-variant);
-    stroke-width: 8;
+    stroke-width: 10;
   }
 
   .ring-fill {
     fill: transparent;
     stroke: var(--mat-sys-primary);
-    stroke-width: 8;
+    stroke-width: 10;
     stroke-dasharray: 283; // 2 * pi * r (45)
-    // CSS variable driven injection:
     stroke-dashoffset: calc(283 - (283 * var(--percent)) / 100);
-    transition: stroke-dashoffset 1s ease-in-out;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     stroke-linecap: round;
   }
 
@@ -78,11 +80,11 @@
 
     h2 {
       margin: 0;
-      font-size: 2.5rem;
-      font-weight: 700;
+      font-size: 3rem;
+      font-weight: 800;
     }
     span {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--mat-sys-on-surface-variant);
@@ -92,21 +94,23 @@
 
 .hero-stats {
   display: flex;
-  gap: 2rem;
+  gap: var(--space-xl);
   text-align: center;
 
   .stat-box {
     h3 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin: 0;
       color: var(--mat-sys-primary);
+      font-weight: 700;
     }
     p {
       margin: 0;
       color: var(--mat-sys-on-surface-variant);
       text-transform: uppercase;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       letter-spacing: 0.05em;
+      font-weight: 500;
     }
   }
 }
@@ -114,7 +118,7 @@
 .grid-layout {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: var(--space-lg);
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
