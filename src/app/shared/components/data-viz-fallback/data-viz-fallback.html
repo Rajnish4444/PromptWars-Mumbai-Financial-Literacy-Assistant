@@ -1,0 +1,42 @@
+<!-- Accessible Screen Reader Table Fallback -->
+<div class="sr-only" aria-live="polite">
+  <table aria-label="Simulation results table">
+    <thead>
+      <tr>
+        <th>Label</th>
+        <th>{{ valueLabel }}</th>
+        @if (computedData().length > 0 && computedData()[0].secondaryValue !== undefined) {
+          <th>{{ secondaryValueLabel }}</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (point of computedData(); track point.label) {
+        <tr>
+          <td>{{ point.label }}</td>
+          <td>{{ formatAsCurrency ? (point.value | currency) : point.value }}</td>
+          @if (point.secondaryValue !== undefined) {
+             <td>{{ formatAsCurrency ? (point.secondaryValue | currency) : point.secondaryValue }}</td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Visual CSS Grid Chart for Sighted Users (aria-hidden) -->
+<div class="css-chart-container" aria-hidden="true">
+  <div class="css-chart">
+    @for (point of computedData(); track point.label) {
+      <div class="bar-group">
+        <div class="bars">
+          @if (point.secondaryValue !== undefined) {
+            <div class="bar secondary" [style.height]="getHeight(point.secondaryValue)" [title]="secondaryValueLabel + ': ' + (formatAsCurrency ? (point.secondaryValue | currency) : point.secondaryValue)"></div>
+          }
+          <div class="bar primary" [style.height]="getHeight(point.value)" [title]="valueLabel + ': ' + (formatAsCurrency ? (point.value | currency) : point.value)"></div>
+        </div>
+        <div class="x-label">{{ point.label }}</div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,125 @@
+<div class="progress-dashboard">
+  <div class="header-section">
+    <mat-icon color="primary" class="header-icon">analytics</mat-icon>
+    <h1 class="mat-headline-3">Your Journey</h1>
+    <p class="mat-body-1 text-muted">A summary of your learning progress and mastery.</p>
+  </div>
+
+  @if (report(); as r) {
+    <!-- Main Hero Progress Ring -->
+    <mat-card class="hero-card">
+      <mat-card-content class="hero-content">
+        <div class="progress-ring-container" [style.--percent]="r.overallCompletionPercentage">
+          <svg class="progress-ring" viewBox="0 0 100 100">
+            <!-- Background circle -->
+            <circle class="ring-bg" cx="50" cy="50" r="45"></circle>
+            <!-- Progress circle -->
+            <circle class="ring-fill" cx="50" cy="50" r="45"></circle>
+          </svg>
+          <div class="ring-text">
+            <h2>{{ r.overallCompletionPercentage }}%</h2>
+            <span>Complete</span>
+          </div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-box">
+            <h3>{{ r.masteredTopicsCount }}</h3>
+            <p>Topics Mastered</p>
+          </div>
+          <div class="stat-box">
+            <h3>{{ r.totalQuizzesTaken }}</h3>
+            <p>Quizzes Taken</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="grid-layout">
+      <!-- Next Recommended Topic -->
+      <mat-card class="action-card recommend-card">
+        <mat-card-header>
+          <div mat-card-avatar>
+            <mat-icon color="primary">route</mat-icon>
+          </div>
+          <mat-card-title>Suggested Next Step</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (r.recommendedNextTopic; as next) {
+            <div class="recommend-info">
+              <mat-icon>{{ next.icon }}</mat-icon>
+              <div>
+                <h3 class="mat-subtitle-1"><strong>{{ next.title }}</strong></h3>
+                <p class="mat-body-2">{{ next.description }}</p>
+              </div>
+            </div>
+            <a mat-flat-button color="primary" [routerLink]="['/learn', next.id]" class="w-full mt-1">Start Module</a>
+          } @else {
+            <p class="mat-body-1">Incredible job! You've mastered all current topics. We'll let you know when new ones arrive.</p>
+            <a mat-stroked-button color="primary" routerLink="/simulate" class="w-full mt-1">Try the Simulators</a>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Room for improvement -->
+      <mat-card class="action-card weak-card">
+        <mat-card-header>
+          <div mat-card-avatar>
+            <mat-icon color="warn">fitness_center</mat-icon>
+          </div>
+          <mat-card-title>Needs Review</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (r.weakTopics.length > 0) {
+            <p class="mat-body-2 text-muted mb-1">We noticed you struggled a bit on these quizzes. A quick refresher could boost your score!</p>
+            <ul class="weak-list">
+              @for (weak of r.weakTopics; track weak.topicId) {
+                <li>
+                  <div class="weak-icon-box">
+                    <mat-icon>{{ getTopicIcon(weak.topicId) }}</mat-icon>
+                  </div>
+                  <div class="weak-details">
+                    <span class="mat-subtitle-2">{{ getTopicTitle(weak.topicId) }}</span>
+                    <span class="mat-caption text-muted">Best Score: {{ weak.highestScore | number:'1.0-0' }}%</span>
+                  </div>
+                  <a mat-icon-button color="accent" [routerLink]="['/learn', weak.topicId]">
+                    <mat-icon>arrow_forward_ios</mat-icon>
+                  </a>
+                </li>
+              }
+            </ul>
+          } @else {
+            <div class="all-clear">
+              <mat-icon color="primary">celebration</mat-icon>
+              <p class="mat-body-1">No weak areas identified currently! Keep up the great work.</p>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Google Link Card (Only shows if anonymous) -->
+    @if (authService.user$ | async; as user) {
+      @if (user.isAnonymous) {
+        <mat-card class="action-card upgrade-card mt-2">
+          <mat-card-header>
+            <div mat-card-avatar>
+              <mat-icon color="primary">cloud_sync</mat-icon>
+            </div>
+            <mat-card-title>Save Progress Permanently</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="mat-body-1">Right now, your progress is saved anonymously to this browser session. If you log out or clear your cache, your mastery scores will reset.</p>
+            <button mat-flat-button color="primary" class="w-full mt-1" style="background-color: #4285F4; color: white" (click)="linkAccount()">
+              <mat-icon>login</mat-icon>
+              Link Google Account
+            </button>
+          </mat-card-content>
+        </mat-card>
+      }
+    }
+    
+  } @else {
+    <div class="loading-wrapper">Loading your stats...</div>
+  }
+</div>

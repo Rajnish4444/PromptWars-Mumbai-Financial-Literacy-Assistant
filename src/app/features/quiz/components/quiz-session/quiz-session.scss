@@ -1,0 +1,100 @@
+.session-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.session-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  mat-progress-bar {
+    flex-grow: 1;
+    height: 8px;
+    border-radius: 4px;
+  }
+
+  .progress-text {
+    font-weight: 500;
+    color: var(--mat-sys-on-surface-variant);
+    white-space: nowrap;
+  }
+}
+
+.question-card {
+  padding: 1rem 0;
+}
+
+.scenario-text {
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.options-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.option-item {
+  white-space: normal;
+  
+  // Need to target deep internal labels in material radio to allow wrapping text
+  ::ng-deep .mdc-form-field {
+    label {
+      line-height: 1.4;
+      padding: 0.5rem 0;
+    }
+  }
+
+  &.correct {
+    ::ng-deep .mdc-form-field {
+      color: var(--mat-sys-tertiary);
+      font-weight: 500;
+    }
+  }
+
+  &.wrong {
+    ::ng-deep .mdc-form-field {
+      color: var(--mat-sys-error);
+    }
+  }
+}
+
+.feedback-box {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--mat-sys-surface-container);
+  
+  mat-icon {
+    margin-top: 0.2rem;
+  }
+
+  h3 { margin: 0; }
+  p { margin: 0.5rem 0 0 0; }
+
+  &.success {
+    background-color: var(--mat-sys-tertiary-container);
+    color: var(--mat-sys-on-tertiary-container);
+  }
+
+  &.error {
+    background-color: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
+  }
+}
+
+.actions-area {
+  padding: 1rem;
+  justify-content: flex-end;
+}
+
+.loading-wrapper {
+  text-align: center;
+  padding: 4rem;
+}

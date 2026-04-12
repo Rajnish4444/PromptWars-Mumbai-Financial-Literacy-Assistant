@@ -1,0 +1,9 @@
+<div class="error-container" aria-live="assertive">
+  <mat-icon color="warn" class="error-icon">error_outline</mat-icon>
+  <h2 class="mat-headline-3">{{ title }}</h2>
+  <p class="mat-body-1">{{ message }}</p>
+  
+  <button mat-stroked-button color="warn" (click)="action.emit()">
+    {{ actionText }}
+  </button>
+</div>

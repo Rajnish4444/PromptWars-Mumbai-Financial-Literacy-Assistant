@@ -1,0 +1,40 @@
+.simulate-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.simulate-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  p {
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+.simulators-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.sim-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  mat-card-content {
+    flex-grow: 1;
+    margin-top: 1rem;
+  }
+
+  mat-card-actions {
+    margin-top: auto;
+    padding: 1rem;
+  }
+}

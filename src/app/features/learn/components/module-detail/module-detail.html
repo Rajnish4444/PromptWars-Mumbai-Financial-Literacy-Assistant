@@ -1,0 +1,90 @@
+@if (module(); as mod) {
+  <div class="detail-container">
+    <a mat-button color="primary" routerLink="/learn" class="back-button">
+      <mat-icon>arrow_back</mat-icon> Back to Modules
+    </a>
+
+    <header class="detail-header">
+      <mat-icon class="header-icon" color="primary">{{ mod.icon }}</mat-icon>
+      <h1 class="mat-display-1">{{ mod.title }}</h1>
+      <p class="mat-body-1 lead-text">{{ mod.shortDescription }}</p>
+    </header>
+
+    <div class="content-sections">
+      <section>
+        <h2 class="mat-headline-4">The Basics</h2>
+        <p class="mat-body-1">{{ mod.explanation }}</p>
+      </section>
+
+      <section>
+        <h2 class="mat-headline-4">Why It Matters</h2>
+        <p class="mat-body-1">{{ mod.whyItMatters }}</p>
+      </section>
+
+      <div class="callout-grid">
+        <mat-card class="callout-card example-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>lightbulb</mat-icon>
+            <mat-card-title>Daily Life Example</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ mod.dailyLifeExample }}</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="callout-card mistake-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>warning</mat-icon>
+            <mat-card-title>Common Mistake</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ mod.commonMistake }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <section class="quiz-section">
+        <h2 class="mat-headline-4">Quick Understanding Check</h2>
+        <mat-card class="quiz-card">
+          <mat-card-content>
+            <p class="question-text">{{ mod.understandingCheck.question }}</p>
+            
+            <mat-radio-group [(ngModel)]="selectedAnswerIndex" [disabled]="isSubmitted()" class="quiz-options">
+              @for (option of mod.understandingCheck.options; track $index) {
+                <mat-radio-button [value]="$index">
+                  {{ option }}
+                </mat-radio-button>
+              }
+            </mat-radio-group>
+
+            @if (isSubmitted()) {
+              <div class="feedback-banner" [class.success]="isCorrect" [class.error]="!isCorrect">
+                <mat-icon>{{ isCorrect ? 'check_circle' : 'cancel' }}</mat-icon>
+                <div>
+                  <h3 class="mat-headline-6">{{ isCorrect ? 'Great job!' : 'Not quite.' }}</h3>
+                  <p class="mat-body-2">{{ mod.understandingCheck.explanation }}</p>
+                </div>
+              </div>
+            }
+          </mat-card-content>
+          
+          <mat-card-actions class="quiz-actions">
+            @if (!isSubmitted()) {
+              <button mat-raised-button color="primary" [disabled]="selectedAnswerIndex() === null" (click)="submitCheck()">
+                Check Answer
+              </button>
+            } @else {
+              <button mat-stroked-button (click)="resetCheck()">
+                Try Again
+              </button>
+            }
+          </mat-card-actions>
+        </mat-card>
+      </section>
+    </div>
+  </div>
+} @else {
+  <div class="loading-wrapper">
+    <p>Loading module...</p>
+  </div>
+}

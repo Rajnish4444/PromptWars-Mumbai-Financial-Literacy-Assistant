@@ -1,0 +1,27 @@
+<div class="simulator-wrapper">
+  <a mat-button color="primary" routerLink="/simulate" class="back-link">
+    <mat-icon>arrow_back</mat-icon> Simulators
+  </a>
+  <h1 class="mat-headline-3">Budget Splitter</h1>
+  <p class="mat-body-1 explanation">The 50/30/20 rule is a simple way to budget. 50% for needs (rent, groceries), 30% for wants (hobbies, eating out), and 20% for savings or paying off debt.</p>
+
+  <mat-card class="sim-card">
+    <mat-card-header>
+      <mat-card-title>Monthly Income: {{ monthlyIncome() | currency }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="controls">
+        <mat-slider min="500" max="15000" step="100" showTickMarks discrete>
+          <input matSliderThumb [(ngModel)]="monthlyIncome">
+        </mat-slider>
+      </div>
+
+      <app-data-viz-fallback [data]="chartData()"></app-data-viz-fallback>
+
+      <div class="what-this-means">
+        <h3 class="mat-headline-6">What this means:</h3>
+        <p class="mat-body-2">If you bring home <strong>{{ monthlyIncome() | currency }}</strong> each month, you should aim to spend no more than <strong>{{ budgetSplit().needs | currency }}</strong> on essential bills. That frees up <strong>{{ budgetSplit().wants | currency }}</strong> for guilt-free fun, ensuring at least <strong>{{ budgetSplit().savings | currency }}</strong> goes into savings!</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

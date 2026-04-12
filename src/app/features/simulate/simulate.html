@@ -1,0 +1,23 @@
+<div class="simulate-container">
+  <div class="simulate-header">
+    <h1 class="mat-headline-2">Simulators</h1>
+    <p class="mat-body-1">Play with the numbers. Use these safe, interactive tools to see how small changes today lead to big results tomorrow.</p>
+  </div>
+
+  <div class="simulators-grid">
+    @for (sim of simulators; track sim.id) {
+      <mat-card class="sim-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar color="primary">{{ sim.icon }}</mat-icon>
+          <mat-card-title>{{ sim.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ sim.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <a mat-flat-button color="primary" [routerLink]="['/simulate', sim.id]">Try It Out</a>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+</div>

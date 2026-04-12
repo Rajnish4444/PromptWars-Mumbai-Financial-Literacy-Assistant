@@ -1,0 +1,12 @@
+<div class="learn-container">
+  <div class="learn-header">
+    <h1 class="mat-headline-2">Learn the Basics</h1>
+    <p class="mat-body-1">Start from scratch. We explain saving, budgeting, and investing in everyday language. Pick a module below to start learning.</p>
+  </div>
+
+  <div class="modules-grid">
+    @for (module of modules(); track module.id) {
+      <app-module-card [module]="module"></app-module-card>
+    }
+  </div>
+</div>

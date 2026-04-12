@@ -1,0 +1,29 @@
+.simulator-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.back-link {
+  margin-bottom: 1rem;
+}
+
+.explanation {
+  margin-bottom: 2rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.controls {
+  padding: 2rem 0;
+  
+  mat-slider {
+    width: 100%;
+  }
+}
+
+.what-this-means {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: var(--mat-sys-surface-container-highest);
+  border-radius: 8px;
+}

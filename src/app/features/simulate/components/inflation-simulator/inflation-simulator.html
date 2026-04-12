@@ -1,0 +1,54 @@
+<div class="simulator-wrapper">
+  <a mat-button color="primary" routerLink="/simulate" class="back-link">
+    <mat-icon>arrow_back</mat-icon> Simulators
+  </a>
+  <h1 class="mat-headline-3">Inflation Impact</h1>
+  <p class="mat-body-1 explanation">See how the "silent thief" eats away at cash hidden under a mattress. This shows how much your money will be worth in the future if prices keep rising without your money growing.</p>
+
+  <mat-card class="sim-card">
+    <mat-card-header>
+      <mat-card-title>Purchasing Power Decay</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      
+      <div class="controls-grid">
+        <div class="control-group">
+          <label>Cash under mattress: {{ initialValue() | currency }}</label>
+          <mat-slider min="1000" max="100000" step="1000">
+            <input matSliderThumb [(ngModel)]="initialValue">
+          </mat-slider>
+        </div>
+
+        <div class="control-group">
+          <label>Inflation Rate: {{ inflationRate() }}%</label>
+          <mat-slider min="0" max="15" step="1">
+            <input matSliderThumb [(ngModel)]="inflationRate">
+          </mat-slider>
+        </div>
+
+        <div class="control-group">
+          <label>Years hidden away: {{ years() }}</label>
+          <mat-slider min="1" max="50" step="1">
+            <input matSliderThumb [(ngModel)]="years">
+          </mat-slider>
+        </div>
+      </div>
+
+      <app-data-viz-fallback 
+        [data]="chartData()" 
+        valueLabel="Purchasing Power">
+      </app-data-viz-fallback>
+
+      <div class="what-this-means alert-warning">
+        <h3 class="mat-headline-6"><mat-icon>warning</mat-icon> What this means:</h3>
+        <p class="mat-body-2">
+          If you leave {{ initialValue() | currency }} in cash for {{ years() }} years with {{ inflationRate() }}% inflation, 
+          it will eventually only be able to buy what <strong>{{ impactData()[impactData().length - 1].value | currency }}</strong> buys today.
+          <br><br>
+          This is exactly why you need to invest your savings—so it grows faster than inflation eats it!
+        </p>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>

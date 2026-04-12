@@ -1,0 +1,36 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Validate if the user is signed in
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Validate ownership based on a nested `userId` property vs doc structure
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // 1. Mastery Tracking
+    // Path: /users/{userId}/mastery/{topicId}
+    match /users/{userId}/mastery/{topicId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // 2. Quiz Attempts Ledger (Flat collection)
+    // Path: /quiz_attempts/{attemptId}
+    match /quiz_attempts/{attemptId} {
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow update, delete: if false; // Attempts are immutable records
+    }
+
+    // 3. Saved Simulations
+    // Path: /users/{userId}/simulations/{simId}
+    match /users/{userId}/simulations/{simId} {
+      allow read, write: if isOwner(userId);
+    }
+  }
+}

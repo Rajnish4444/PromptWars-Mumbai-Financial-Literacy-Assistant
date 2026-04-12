@@ -1,0 +1,52 @@
+<mat-sidenav-container class="app-sidenav-container">
+  <mat-sidenav #sidenav [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()" class="app-sidenav">
+    <mat-toolbar color="primary" class="branding-toolbar">
+      <span>FinLit Lab</span>
+    </mat-toolbar>
+    <mat-nav-list>
+      @for (link of navLinks; track link.path) {
+        <a mat-list-item [routerLink]="link.path" routerLinkActive="active" (click)="isMobile() ? sidenav.close() : null">
+          <mat-icon matListItemIcon>{{ link.icon }}</mat-icon>
+          <div matListItemTitle>{{ link.label }}</div>
+        </a>
+      }
+      
+      <div class="auth-spacer" style="margin-top: auto;"></div>
+
+      @if (authService.user$ | async; as user) {
+        @if (user.isAnonymous) {
+          <a mat-list-item (click)="authService.upgradeToGoogleAccount()" style="cursor: pointer">
+            <mat-icon matListItemIcon color="primary">login</mat-icon>
+            <div matListItemTitle style="color: #4285F4; font-weight: 500;">Login with Google</div>
+          </a>
+        } @else {
+          <a mat-list-item (click)="authService.signOut()" style="cursor: pointer">
+            <img *ngIf="user.photoURL" [src]="user.photoURL" alt="User Profile" matListItemIcon style="border-radius: 50%; width: 24px; height: 24px;">
+            <mat-icon *ngIf="!user.photoURL" matListItemIcon>account_circle</mat-icon>
+            <div matListItemTitle>{{ user.displayName || 'Account' }}</div>
+            <div matListItemLine style="color: #e53935;">Sign Out</div>
+          </a>
+        }
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="app-sidenav-content">
+    <mat-toolbar color="primary" class="mobile-toolbar">
+      @if (isMobile()) {
+        <button mat-icon-button (click)="sidenav.toggle()" aria-label="Toggle Navigation">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>FinLit Lab</span>
+      }
+    </mat-toolbar>
+    <main class="main-content">
+      <router-outlet></router-outlet>
+      
+      <div class="firebase-footer-badge">
+        <mat-icon>security</mat-icon>
+        <span class="mat-caption">Data persisted securely via Google Firebase Auth & Firestore</span>
+      </div>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

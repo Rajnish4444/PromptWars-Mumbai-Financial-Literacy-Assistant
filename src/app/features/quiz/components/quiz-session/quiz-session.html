@@ -1,0 +1,51 @@
+@if (topic(); as t) {
+  <div class="session-wrapper">
+    <div class="session-header">
+      <a mat-icon-button routerLink="/quiz" aria-label="Exit quiz">
+        <mat-icon>close</mat-icon>
+      </a>
+      <mat-progress-bar mode="determinate" [value]="progressPercentage()"></mat-progress-bar>
+      <span class="progress-text">{{ currentQuestionIndex() + 1 }} of {{ t.questions.length }}</span>
+    </div>
+
+    @if (currentQuestion(); as q) {
+      <mat-card class="question-card">
+        <mat-card-content>
+          <h2 class="mat-headline-5 scenario-text">{{ q.scenario }}</h2>
+
+          <mat-radio-group class="options-group" [(ngModel)]="selectedOptionIndex" [disabled]="isAnswerSubmitted()">
+            @for (opt of q.options; track $index) {
+              <mat-radio-button [value]="$index" class="option-item" [class.correct]="isAnswerSubmitted() && $index === q.correctOptionIndex" [class.wrong]="isAnswerSubmitted() && $index === selectedOptionIndex() && !isCorrect">
+                {{ opt }}
+              </mat-radio-button>
+            }
+          </mat-radio-group>
+
+          @if (isAnswerSubmitted()) {
+            <div class="feedback-box" [class.success]="isCorrect" [class.error]="!isCorrect">
+              <mat-icon>{{ isCorrect ? 'check_circle' : 'cancel' }}</mat-icon>
+              <div>
+                <h3 class="mat-body-1"><strong>{{ isCorrect ? 'Correct!' : 'Incorrect' }}</strong></h3>
+                <p class="mat-body-2">{{ isCorrect ? q.successFeedback : q.failureFeedback }}</p>
+              </div>
+            </div>
+          }
+        </mat-card-content>
+
+        <mat-card-actions class="actions-area">
+          @if (!isAnswerSubmitted()) {
+            <button mat-flat-button color="primary" [disabled]="selectedOptionIndex() === null" (click)="submitAnswer()">
+              Submit Answer
+            </button>
+          } @else {
+            <button mat-flat-button color="primary" (click)="nextQuestion()">
+              {{ currentQuestionIndex() === t.questions.length - 1 ? 'Finish Quiz' : 'Next Question' }}
+            </button>
+          }
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+} @else {
+  <div class="loading-wrapper">Loading quiz...</div>
+}

@@ -1,0 +1,40 @@
+<div class="quiz-container">
+  <div class="quiz-header">
+    <h1 class="mat-headline-2">Knowledge Checks</h1>
+    <p class="mat-body-1">Test your financial literacy with real-world scenarios. Earn mastery badges by passing the checks!</p>
+  </div>
+
+  <div class="topics-grid">
+    @for (topic of topics; track topic.id) {
+      <mat-card class="topic-card " [class.mastered]="isMastered(topic.id)">
+        <mat-card-header>
+          <div mat-card-avatar class="icon-wrapper">
+            <mat-icon color="primary">{{ topic.icon }}</mat-icon>
+          </div>
+          <mat-card-title>
+            {{ topic.title }}
+            @if (isMastered(topic.id)) {
+              <mat-icon class="mastery-badge" color="accent" title="Topic Mastered">military_tech</mat-icon>
+            }
+          </mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <p>{{ topic.description }}</p>
+          <p class="stats">
+            <small>{{ topic.questions.length }} Questions</small>
+            @if (masteryMap()[topic.id]; as m) {
+              <small class="score-badge">Best Score: {{ m.highestScore | number:'1.0-0' }}%</small>
+            }
+          </p>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <a mat-flat-button color="primary" [routerLink]="['/quiz', topic.id]">
+            {{ isMastered(topic.id) ? 'Retake Quiz' : 'Start Quiz' }}
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+</div>

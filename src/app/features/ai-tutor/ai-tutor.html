@@ -1,0 +1,67 @@
+<div class="tutor-container">
+  <div class="chat-header" role="banner">
+    <div class="title-area">
+      <mat-icon color="primary">smart_toy</mat-icon>
+      <h1 class="mat-headline-4">AI Financial Tutor</h1>
+      <span class="gemini-badge">Powered by Google Gemini ✨</span>
+    </div>
+    <button mat-icon-button (click)="clearChat()" title="Clear Conversation" aria-label="Clear Chat Conversation" [disabled]="tutorService.chatHistory().length === 0">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
+
+  <mat-card class="chat-card">
+    <mat-card-content class="chat-history scroll-container" #scrollMe>
+      
+      @if (tutorService.chatHistory().length === 0) {
+        <div class="empty-state">
+          <mat-icon class="large-icon">waving_hand</mat-icon>
+          <h2 class="mat-headline-6">Hello! I'm your AI Tutor.</h2>
+          <p class="mat-body-1 text-muted">I can explain complex financial terms simply, help you compare concepts, and generate custom quiz questions. Try asking one of the suggestions below!</p>
+          
+          <div class="suggestions">
+            @for (suggestion of suggestedPrompts; track suggestion) {
+              <button mat-stroked-button (click)="send(suggestion)" [disabled]="tutorService.isTyping()" class="suggestion-chip">
+                {{ suggestion }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      @for (msg of tutorService.chatHistory(); track msg.id) {
+        <div class="message-row" [class.user-row]="msg.role === 'user'">
+          <div class="message-bubble" [class.user-bubble]="msg.role === 'user'" [class.system-bubble]="msg.role === 'system'">
+            @if (msg.role === 'assistant') { <mat-icon class="msg-icon">school</mat-icon> }
+            @if (msg.role === 'system') { <mat-icon class="msg-icon">error_outline</mat-icon> }
+            
+            <div class="content" [innerHTML]="msg.content"></div>
+          </div>
+        </div>
+      }
+
+      @if (tutorService.isTyping()) {
+        <div class="message-row">
+          <div class="message-bubble typing-indicator">
+            <mat-spinner diameter="20" strokeWidth="2"></mat-spinner>
+            <span>Analyzing...</span>
+          </div>
+        </div>
+      }
+      
+    </mat-card-content>
+
+    <mat-card-actions class="chat-input-area">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Ask anything about personal finance...</mat-label>
+        <input matInput [(ngModel)]="userInput" (keyup.enter)="send()" [disabled]="tutorService.isTyping()">
+        <button mat-icon-button matSuffix color="primary" (click)="send()" [disabled]="!userInput.trim() || tutorService.isTyping()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="disclaimer text-muted">
+        <small>AI Tutor is for educational purposes only and cannot provide personal financial advice or recommendations.</small>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

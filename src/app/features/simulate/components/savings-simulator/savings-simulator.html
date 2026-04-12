@@ -1,0 +1,54 @@
+<div class="simulator-wrapper">
+  <a mat-button color="primary" routerLink="/simulate" class="back-link">
+    <mat-icon>arrow_back</mat-icon> Simulators
+  </a>
+  <h1 class="mat-headline-3">Savings Tracker</h1>
+  <p class="mat-body-1 explanation">Just starting out? This shows how simply setting aside a small amount of money every month adds up over time, even with zero interest.</p>
+
+  <mat-card class="sim-card">
+    <mat-card-header>
+      <mat-card-title>Your Cash Stash</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      
+      <div class="controls-grid">
+        <div class="control-group">
+          <label>Starting Amount: {{ initialAmount() | currency }}</label>
+          <mat-slider min="0" max="5000" step="100">
+            <input matSliderThumb [(ngModel)]="initialAmount">
+          </mat-slider>
+        </div>
+
+        <div class="control-group">
+          <label>Monthly Contribution: {{ monthlyContribution() | currency }}</label>
+          <mat-slider min="0" max="1000" step="25">
+            <input matSliderThumb [(ngModel)]="monthlyContribution">
+          </mat-slider>
+        </div>
+
+        <div class="control-group">
+          <label>Years Saving: {{ years() }}</label>
+          <mat-slider min="1" max="10" step="1" discrete showTickMarks>
+            <input matSliderThumb [(ngModel)]="years">
+          </mat-slider>
+        </div>
+      </div>
+
+      <app-data-viz-fallback 
+        [data]="chartData()" 
+        valueLabel="Total Saved">
+      </app-data-viz-fallback>
+
+      <div class="what-this-means alert-success">
+        <h3 class="mat-headline-6"><mat-icon>savings</mat-icon> What this means:</h3>
+        <p class="mat-body-2">
+          By simply hiding away {{ monthlyContribution() | currency }} a month for {{ years() }} years, 
+          you will have built up <strong>{{ growthData()[growthData().length - 1].value | currency }}</strong>.
+          <br><br>
+          This is entirely your own money safely stashed away! No risks taken.
+        </p>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>

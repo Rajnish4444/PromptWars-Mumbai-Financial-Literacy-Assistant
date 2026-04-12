@@ -1,0 +1,55 @@
+<div class="simulator-wrapper">
+  <a mat-button color="primary" routerLink="/simulate" class="back-link">
+    <mat-icon>arrow_back</mat-icon> Simulators
+  </a>
+  <h1 class="mat-headline-3">Risk vs. Return</h1>
+  <p class="mat-body-1 explanation">To get higher returns, you must accept higher risk. See how increasing risk widens the possible outcomes between you losing your money and making a huge profit.</p>
+
+  <mat-card class="sim-card">
+    <mat-card-header>
+      <mat-card-title>Outcome Bounds</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      
+      <div class="controls-grid">
+        <div class="control-group">
+          <label>Investment Amount: {{ investmentAmount() | currency }}</label>
+          <mat-slider min="100" max="50000" step="500">
+            <input matSliderThumb [(ngModel)]="investmentAmount">
+          </mat-slider>
+        </div>
+
+        <div class="control-group">
+          <label>Risk Level (1 = Safe, 10 = Risky): {{ riskLevel() }}</label>
+          <mat-slider min="1" max="10" step="1" discrete showTickMarks>
+            <input matSliderThumb [(ngModel)]="riskLevel">
+          </mat-slider>
+        </div>
+
+        <div class="control-group">
+          <label>Years Held: {{ years() }}</label>
+          <mat-slider min="1" max="30" step="1">
+            <input matSliderThumb [(ngModel)]="years">
+          </mat-slider>
+        </div>
+      </div>
+
+      <app-data-viz-fallback [data]="chartData()"></app-data-viz-fallback>
+
+      <div class="what-this-means alert-info">
+        <h3 class="mat-headline-6"><mat-icon>info</mat-icon> What this means:</h3>
+        <p class="mat-body-2">
+          By taking a risk level of {{ riskLevel() }}, your expected final balance is <strong>{{ riskData().expectedValue | currency }}</strong>.
+          However, because of the risk, things might go badly. Your worst-case bound shows you could end up with only <strong>{{ riskData().pessimisticValue | currency }}</strong>.
+          If things go extremely well, you could see <strong>{{ riskData().optimisticValue | currency }}</strong>.
+          <br><br>
+          Notice how bumping up the risk makes the "Optimistic Case" skyrocket, but pulls the "Pessimistic Case" closer to zero.
+        </p>
+      </div>
+
+      <div class="disclaimer">
+        <em>Note: This is a purely educational mathematical model to demonstrate variance bounds. Real investing does not guarantee performance bounds.</em>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

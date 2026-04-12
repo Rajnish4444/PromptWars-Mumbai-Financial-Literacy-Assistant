@@ -1,0 +1,79 @@
+.simulator-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.back-link {
+  margin-bottom: 1rem;
+}
+
+.explanation {
+  margin-bottom: 2rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  @media (min-width: 600px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  
+  label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  mat-slider {
+    width: 100%;
+  }
+}
+
+.legend {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .box {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+
+    &.primary {
+      background-color: var(--mat-sys-primary);
+    }
+    &.secondary {
+      background-color: var(--mat-sys-tertiary-container);
+    }
+  }
+}
+
+.what-this-means {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--mat-sys-surface-container-highest);
+  border-radius: 8px;
+
+  .highlight {
+    color: var(--mat-sys-primary);
+    font-size: 1.05rem;
+  }
+}

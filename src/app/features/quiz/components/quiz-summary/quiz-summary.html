@@ -1,0 +1,30 @@
+<div class="summary-wrapper" [class.is-passed]="passed()">
+  <mat-card class="summary-card">
+    <mat-card-header>
+      <div mat-card-avatar class="summary-icon">
+        <mat-icon>{{ passed() ? 'military_tech' : 'sentiment_dissatisfied' }}</mat-icon>
+      </div>
+      <mat-card-title>{{ passed() ? 'Mastery Achieved!' : 'Keep Learning!' }}</mat-card-title>
+      <mat-card-subtitle>{{ topicName() }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="score-content">
+      <div class="score-circle">
+        <h1>{{ score() | number:'1.0-0' }}%</h1>
+      </div>
+      
+      @if (passed()) {
+        <p class="mat-body-1">Excellent work! You've mastered this financial concept. It's now added to your verified knowledge.</p>
+      } @else {
+        <p class="mat-body-1">You didn't quite hit the 70% passing threshold. Don't worry, take a moment to review the Learn section and try again.</p>
+      }
+    </mat-card-content>
+
+    <mat-card-actions class="actions-area">
+      <a mat-stroked-button color="primary" routerLink="/quiz">Return to Quizzes</a>
+      @if (!passed()) {
+        <a mat-flat-button color="primary" [routerLink]="['/quiz', route.snapshot.paramMap.get('topicId')]">Retake Quiz</a>
+      }
+    </mat-card-actions>
+  </mat-card>
+</div>

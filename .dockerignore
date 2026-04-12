@@ -1,0 +1,13 @@
+.git
+.gitignore
+node_modules/
+dist/
+.editorconfig
+.angular/
+firebase.json
+.firebaserc
+firestore.rules
+firestore.indexes.json
+npm-debug.log
+README.md
+docs/

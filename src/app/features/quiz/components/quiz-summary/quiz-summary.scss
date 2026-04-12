@@ -1,0 +1,64 @@
+.summary-wrapper {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.summary-card {
+  text-align: center;
+  padding: 2rem;
+}
+
+.summary-icon {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+  float: none !important;
+
+  mat-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    color: var(--mat-sys-error);
+  }
+}
+
+.is-passed .summary-icon mat-icon {
+  color: var(--mat-sys-tertiary); /* Green for pass */
+}
+
+mat-card-title {
+  margin-bottom: 0.5rem;
+}
+
+.score-content {
+  margin: 2rem 0;
+}
+
+.score-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 8px solid var(--mat-sys-error-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem auto;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--mat-sys-on-surface);
+  }
+}
+
+.is-passed .score-circle {
+  border-color: var(--mat-sys-tertiary);
+}
+
+.actions-area {
+  justify-content: center;
+  gap: 1rem;
+}

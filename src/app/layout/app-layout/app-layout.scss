@@ -1,0 +1,51 @@
+.app-sidenav-container {
+  height: 100vh;
+}
+
+.app-sidenav {
+  width: 250px;
+}
+
+.branding-toolbar {
+  justify-content: center;
+  font-weight: bold;
+}
+
+.mobile-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.main-content {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+}
+
+.firebase-footer-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding: 2rem 1rem 1rem;
+  color: var(--mat-sys-on-surface-variant);
+  opacity: 0.8;
+
+  mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    color: #FFCA28; // Firebase yellow accent
+  }
+}
+
+@media (min-width: 600px) {
+  .mobile-toolbar {
+    display: none;
+  }
+}
