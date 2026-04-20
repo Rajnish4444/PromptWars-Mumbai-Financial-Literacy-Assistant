@@ -24,7 +24,7 @@ export class Progress implements OnInit {
   topicsMap = new Map(QUIZ_TOPICS.map(t => [t.id, t]));
 
   async ngOnInit() {
-    const data = await this.progressService.generateLearningReport('guest');
+    const data = await this.progressService.generateLearningReport();
     this.report.set(data);
   }
 

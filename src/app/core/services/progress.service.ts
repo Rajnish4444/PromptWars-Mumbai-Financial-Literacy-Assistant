@@ -23,7 +23,7 @@ export class ProgressService {
    * Generates a comprehensive learning snapshot based on tracked Mastery.
    * Future Iteration: Import "Modules Read" from a ModulePersistenceService if one is required.
    */
-  async generateLearningReport(userId: string = 'guest'): Promise<ProgressReport> {
+  async generateLearningReport(userId?: string): Promise<ProgressReport> {
     const allMastery = await this.quizService.getAllMastery(userId);
 
     const totalTopics = QUIZ_TOPICS.length;
